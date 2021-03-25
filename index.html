@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fact Year | Modern JS!</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="w-50 mx-auto my-3">
+			<h1 class="text-center">Fact Year</h1>
+			<hr>
+			<form class="form-group">
+				<input name="number" type="number" class="form-control" placeholder="Year..">
+				<button class="btn btn-success my-3">Get Fact</button>
+			</form>
+			<div id="app"></div>
+		</div>
+	</div>
+
+	<script>
+		let app = document.querySelector("#app")
+
+		async function getYearFact (year="random") {
+			year = year ? year : "random"
+			let response = await fetch(`http://numbersapi.com/${year}/year`)
+			let data = await response.text()
+			app.textContent = data
+			app.className = "alert alert-success"
+		}
+
+		let form = document.querySelector("form")
+		form.addEventListener("submit", e => {
+			e.preventDefault()
+			getYearFact(e.target.number.value)
+		})
+
+	</script>
+</body>
+</html>
